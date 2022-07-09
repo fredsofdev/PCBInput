@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCBInput", "PCBInput\PCBInput.csproj", "{6C8BE49E-FD8D-465B-A9EC-70BB976BAACC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCBInput.Test", "PCBInput.Test\PCBInput.Test.csproj", "{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C8BE49E-FD8D-465B-A9EC-70BB976BAACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8BE49E-FD8D-465B-A9EC-70BB976BAACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8BE49E-FD8D-465B-A9EC-70BB976BAACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8BE49E-FD8D-465B-A9EC-70BB976BAACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7B1884FF-D972-4785-ADF9-D620E327C8BB}
+	EndGlobalSection
+EndGlobal
