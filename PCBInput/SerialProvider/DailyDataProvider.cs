@@ -9,29 +9,16 @@ using System.Threading.Tasks;
 
 namespace PCBInput.SerialProvider
 {
-    public class CollectedDataProvider : IDataProvider<Item>
+    public class DailyDataProvider : RecordRepoBase<ISendRecordRepository>, IDataProvider<SendItem>
     {
-        private IUnitOfWork<IItemRecordRepository> work;
 
-        public CollectedDataProvider(IUnitOfWork<IItemRecordRepository> work)
-        {
+        public DailyDataProvider(IUnitOfWork<ISendRecordRepository> work)=>
             this.work = work;
-        }
 
-        public List<Item> GetData(DateTime date)
+        public List<SendItem> GetData(DateTime date)
         {
-            var dbDate = work.Repo.GetDbContextDate();
-            if (date.Hour != dbDate.Hour)
-            {
-                RenewUnitOfWork(date);
-            }
-            return work.Repo.GetDurationalRecord(date);
-        }
-
-        private void RenewUnitOfWork(DateTime date)
-        {
-            work.Dispose();
-            work = (IUnitOfWork<IItemRecordRepository>)new UnitOfWork<ItemRecordRepository>(new RecordDataContext(date));
+            RenewUnitOfWork<SendDataContext>(date);
+            return work!.Repo.GetAll().ToList();
         }
     }
 }

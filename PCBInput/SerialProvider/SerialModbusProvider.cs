@@ -1,4 +1,7 @@
-﻿using EasyModbus;
+﻿using DBLib;
+using DBLib.Setup;
+using DBLib.Setup.Entities;
+using EasyModbus;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
@@ -11,24 +14,22 @@ namespace PCBInput.SerialProvider
 {
     public class SerialModbusProvider : IDataProvider<int>, IDisposable
     {
+        
         private ModbusClient? _modbusClient;
 
         private bool disposed = false;
 
-        public SerialModbusProvider(int port)
+        private IUnitOfWork<ItemDetailRepository> _work;
+
+        public SerialModbusProvider(IUnitOfWork<ItemDetailRepository> work)
         {
-            _modbusClient = new ModbusClient($"COM{port}");
+            _work = work;
+            _modbusClient = new ModbusClient($"COM{GetSensors().First().SerPort}");
             _modbusClient.UnitIdentifier = 1;
             _modbusClient.Baudrate = 9600;
             _modbusClient.Parity = Parity.None;
             _modbusClient.StopBits = StopBits.One;
             _modbusClient!.Connect();
-        }
-
-        private int GetTargetPort()
-        {
-            //TODO search target serial port
-            return 3;
         }
 
         public void PowerUpSensors()
@@ -70,6 +71,7 @@ namespace PCBInput.SerialProvider
             {
                 if (disposing && _modbusClient!.Connected)
                 {
+                    _work.Dispose();
                     _modbusClient.Disconnect();
                     _modbusClient = null;
                 }
@@ -77,5 +79,7 @@ namespace PCBInput.SerialProvider
                 disposed = true;
             }
         }
+
+        private List<ItemDetail> GetSensors() => _work.Repo.GetAll().ToList();
     }
 }
