@@ -10,7 +10,7 @@ using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PCBInput.SerialProvider
+namespace PCBInput.DataProvider
 {
     public class SerialModbusProvider : IDataProvider<int>, IDisposable
     {

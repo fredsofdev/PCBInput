@@ -17,6 +17,8 @@ namespace PCBInput.Manipulator
 
         public List<Item> Manipulate(List<int> data, DateTime date)
         {
+            if(!data.Any()) return new List<Item> {};
+
             var sensors = GetSensors();
 
             sensors = isInspected(sensors);

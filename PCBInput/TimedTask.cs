@@ -1,5 +1,5 @@
 ﻿using PCBInput.Manipulator;
-using PCBInput.SerialProvider;
+using PCBInput.DataProvider;
 using PCBInput.TimeCaller;
 using PCBInput.Writer;
 

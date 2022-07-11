@@ -8,12 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PCBInput.SerialProvider
+namespace PCBInput.DataProvider
 {
-    public class CollectedDataProvider : RecordRepoBase<IItemRecordRepository>, IDataProvider<Item>
+    public class CollectedDataProvider : RecordRepoBase<ItemRecordRepository>, IDataProvider<Item>
     {
 
-        public CollectedDataProvider(IUnitOfWork<IItemRecordRepository> work) =>
+        public CollectedDataProvider(IUnitOfWork<ItemRecordRepository> work) =>
             this.work = work;
 
         public List<Item> GetData(DateTime date)

@@ -10,11 +10,23 @@ namespace PCBInput
         public void RenewUnitOfWork<V>(DateTime date) where V : DbContextBase
         {
             var dbDate = work!.Repo.GetDbContextDate();
-            if (date.Hour != dbDate.Hour)
+            if(work.Repo.GetType() == typeof(RecordDataContext))
             {
-                work!.Dispose();
-                work = new UnitOfWork<T>((V)Activator.CreateInstance(typeof(V), date)!);
+                if (date.Hour != dbDate.Hour)
+                {
+                    work!.Dispose();
+                    work = new UnitOfWork<T>((V)Activator.CreateInstance(typeof(V), date)!);
+                }
             }
+            else if(work.Repo.GetType() == typeof(SendDataContext))
+            {
+                if (date.Day != dbDate.Day)
+                {
+                    work!.Dispose();
+                    work = new UnitOfWork<T>((V)Activator.CreateInstance(typeof(V), date)!);
+                }
+            }
+            
             
         }
     }
