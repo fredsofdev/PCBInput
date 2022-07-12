@@ -8,7 +8,7 @@ namespace PCBInput.Test
 {
     public class TimeCallerTest
     {
-        [Fact]
+        
         public void TimeCallerTimeInterval()
         {
             var eventLists = new List<DateTime>();
