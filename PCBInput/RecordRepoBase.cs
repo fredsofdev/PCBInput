@@ -26,8 +26,6 @@ namespace PCBInput
                     work = new UnitOfWork<T>((V)Activator.CreateInstance(typeof(V), date)!);
                 }
             }
-            
-            
         }
     }
 }

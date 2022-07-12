@@ -11,10 +11,6 @@ namespace PCBInput.Manipulator
         {
             if(!data.Any()) return new List<DayEndRecord> {};
 
-            var tdatCount = data.Where(i => i.isSent == true && i.RptState != 4).Count();
-            var toffCount = data.Where(i => i.isSent == true && i.RptState == 4).Count();
-
-            var totalDataCount = data.GroupBy(i => i.Date).Count();
             var groupedItems = data.GroupBy(i => i.ItemId);
 
             List<DayEndRecord> records = new List<DayEndRecord>();
@@ -24,9 +20,9 @@ namespace PCBInput.Manipulator
                 records.Add(new DayEndRecord()
                 {
                     Date = group.Last().Date,
-                    DataCount = totalDataCount,
-                    TDATCount = tdatCount,
-                    TOFFCount = toffCount,
+                    DataCount = data.GroupBy(i => i.Date).Count(),
+                    TDATCount = data.Where(i => i.RptState != 4).Count(),
+                    TOFFCount = data.Where(i => i.RptState == 4).Count(),
                     ItemCount = groupedItems.Count(),
                     FacCode = group.Last().FacilityCode,
                     ItemCode = group.Last().ItemCode!,
