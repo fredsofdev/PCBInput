@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace PCBInput.DataProvider
 {
-    public class DailyDataProvider : RecordRepoBase<ISendRecordRepository>, IDataProvider<SendItem>
+    public class DailyDataProvider : RecordRepoBase<SendRecordRepository>, IDataProvider<SendItem>
     {
 
-        public DailyDataProvider(IUnitOfWork<ISendRecordRepository> work)=>
+        public DailyDataProvider(IUnitOfWork<SendRecordRepository> work)=>
             this.work = work;
 
         public List<SendItem> GetData(DateTime date)

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace PCBInput.Writer
 {
-    public class DayDataWriter : RecordRepoBase<IDayEndRecordRepository>, IDataWriter<DayEndRecord>
+    public class DayDataWriter : RecordRepoBase<DayEndRecordRepository>, IDataWriter<DayEndRecord>
     {
-        public DayDataWriter(IUnitOfWork<IDayEndRecordRepository> work) =>
+        public DayDataWriter(IUnitOfWork<DayEndRecordRepository> work) =>
             this.work = work;
 
         public void Write(List<DayEndRecord> data, DateTime date)

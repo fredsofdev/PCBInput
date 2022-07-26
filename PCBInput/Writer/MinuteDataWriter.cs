@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace PCBInput.Writer
 {
-    public class MinuteDataWriter : RecordRepoBase<ISendRecordRepository>, IDataWriter<SendItem>
+    public class MinuteDataWriter : RecordRepoBase<SendRecordRepository>, IDataWriter<SendItem>
     {
-        public MinuteDataWriter(IUnitOfWork<ISendRecordRepository> work) =>
+        public MinuteDataWriter(IUnitOfWork<SendRecordRepository> work) =>
             this.work = work;
         
         public void Write(List<SendItem> data, DateTime date)

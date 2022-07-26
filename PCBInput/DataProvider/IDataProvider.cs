@@ -10,4 +10,6 @@ namespace PCBInput.DataProvider
     {
         List<T> GetData(DateTime date);
     }
+
+    
 }

@@ -2,7 +2,7 @@
 using System;
 using System.Timers;
 
-namespace PCBInput.TimeCaller
+namespace PCBInput.Helper
 {
     public class TimeScheduleEvent
     {
