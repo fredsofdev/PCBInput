@@ -7,14 +7,15 @@ using DBLib;
 using DBLib.Record.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using PCBInput.DataProvider;
+using PCBInput.Helper;
 using PCBInput.Manipulator;
 using PCBInput.Writer;
 
 namespace PCBInput
 {
-    public static class ProtoService
+    public static class PCBService
     {
-        public static IServiceProvider GetProtoServices()
+        public static IServiceProvider GetPCBServices()
         {
             var service = DBService.GetDBServices();
 
