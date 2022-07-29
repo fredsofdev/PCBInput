@@ -39,6 +39,8 @@ namespace PCBInput
             service.AddTransient<TimedTask<SendItem, DayEndRecord>>();
             service.AddTransient<TimedTask<DateTime, IGrouping<DateTime, SendItem>>>();
 
+            service.AddTransient<TimeScheduleEvent>();
+
             return service.BuildServiceProvider();
         }
     }

@@ -16,8 +16,9 @@ namespace PCBInput.Writer
 
         public void Write(List<DayEndRecord> data, DateTime date)
         {
-             RenewUnitOfWork<SendDataContext>(date);
-             work!.Repo.AddRange(data);
+            RenewUnitOfWork<SendDataContext>(date);
+            work!.Repo.AddRange(data);
+            work!.Complete();
         }
     }
 }

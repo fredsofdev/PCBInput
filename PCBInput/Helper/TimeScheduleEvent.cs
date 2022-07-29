@@ -1,4 +1,7 @@
 ﻿
+using DBLib;
+using DBLib.Setup;
+using DBLib.Setup.Entities;
 using System;
 using System.Timers;
 
@@ -10,9 +13,12 @@ namespace PCBInput.Helper
         public event EventHandler<TimeScheduleEventArgs>? fiveSecondElapsed;
         public event EventHandler<TimeScheduleEventArgs>? fiveMinuteElapsed;
         public event EventHandler<TimeScheduleEventArgs>? dayElapsed;
+        public event EventHandler<TimeScheduleEventArgs>? unsendTimeElapsed;
 
-        public TimeScheduleEvent()
+        private IUnitOfWork<SetupRepository<Setting>> workOfSetting;
+        public TimeScheduleEvent(IUnitOfWork<SetupRepository<Setting>> unitOfWork)
         {
+            this.workOfSetting = unitOfWork;
             _timer = new System.Timers.Timer();
             _timer.Interval = 1000;
             _timer.Elapsed += OnElapsedTime;
@@ -35,8 +41,17 @@ namespace PCBInput.Helper
 
             if (e.SignalTime == DateTime.Today)
             {
+                args.DateTime = e.SignalTime.AddDays(-1);
                 dayElapsed?.Invoke(this, args);
             }
+
+            var setting = workOfSetting.Repo.GetFirst();
+            if(setting.UnsendTime == e.SignalTime.ToString("HHmm") || 
+                (setting.UnsendTime == "9999" && e.SignalTime == DateTime.Today))
+            {
+                unsendTimeElapsed?.Invoke(this, args);
+            }
+
         }
 
     }

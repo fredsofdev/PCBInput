@@ -18,6 +18,7 @@ namespace PCBInput.Writer
         {
             RenewUnitOfWork<SendDataContext>(date);
             work!.Repo.AddRange(data);
+            work!.Complete();
         }
     }
 }

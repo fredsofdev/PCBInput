@@ -20,12 +20,12 @@ namespace PCBInput
             _writer = writer;
         }
 
-        public async void Execute(TimeScheduleEventArgs arg)
+        public async void Execute(DateTime dateTime)
         {
-            await Task.Run(() => executer(arg.DateTime));
+            await Task.Run(() => Executer(dateTime));
         }
 
-        private Task executer(DateTime date)
+        public Task Executer(DateTime date)
         {
             List<T> rawData = _dataProvider.GetData(date);
             List<V> saveItem = _manipulator.Manipulate(rawData, date);
