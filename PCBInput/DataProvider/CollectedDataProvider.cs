@@ -18,7 +18,12 @@ namespace PCBInput.DataProvider
 
         public List<Item> GetData(DateTime date)
         {
-            RenewUnitOfWork<RecordDataContext>(date);
+            var dbFile = AppDomain.CurrentDomain.BaseDirectory + $"\\DATA\\"
+                + $"DAT_{date.AddMinutes(-5).ToString("yyyyMMddHH")}.db";
+
+            if (!File.Exists(dbFile)) return new();
+
+            RenewUnitOfWork<RecordDataContext>(date.AddMinutes(-5));
             return work!.Repo.GetDurationalRecord(date);
         }
     }

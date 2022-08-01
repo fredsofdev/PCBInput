@@ -16,7 +16,13 @@ namespace PCBInput.Writer
         
         public void Write(List<SendItem> data, DateTime date)
         {
-            RenewUnitOfWork<SendDataContext>(date);
+            var dateC = data.First().Date;
+            var dbFile = AppDomain.CurrentDomain.BaseDirectory + $"\\DATA\\"
+                + $"DAY_{dateC.ToString("yyyyMMdd")}.db";
+
+            if (!File.Exists(dbFile)) return;
+
+            RenewUnitOfWork<SendDataContext>(dateC.AddMinutes(-5));
             work!.Repo.AddRange(data);
             work!.Complete();
         }

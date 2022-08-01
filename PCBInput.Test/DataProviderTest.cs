@@ -24,20 +24,22 @@ namespace PCBInput.Test
             {
                 testList.Add(new Item()
                 {
-                    Date = firstTime,
+                    Date = firstTime.AddMinutes(-5),
                     ItemId = id,
                 });
             }
             var dbSetMock = Helper.getMockDbSet(testList);
-            var context = new Mock<DbContextBase>();
+            var context = new Mock<RecordDataContext>();
 
             context.Setup(x => x.Set<Item>()).Returns(dbSetMock.Object);
-            var date = DateTime.Now;
-            context.Setup(x => x.dbFile).Returns($"local\\DAT_{date.ToString("yyyyMMddHH")}.db");
+            
+            context.Setup(x => x.dbFile).Returns($"local\\DAT_{firstTime.ToString("yyyyMMddHH")}.db");
+            var work = new UnitOfWork<ItemRecordRepository, RecordDataContext>(context.Object);
 
-            var dataWriter = new CollectedDataProvider(new UnitOfWork<ItemRecordRepository>(context.Object));
+            var dataWriter = new CollectedDataProvider(work);
 
-            var data = dataWriter.GetData(date);
+            //var data = dataWriter.GetData(firstTime);
+            var data = work.Repo.GetDurationalRecord(firstTime);
 
             Assert.True(data.SequenceEqual(testList), $"Result count {data.Count}");
 

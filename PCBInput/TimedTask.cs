@@ -28,6 +28,7 @@ namespace PCBInput
         public Task Executer(DateTime date)
         {
             List<T> rawData = _dataProvider.GetData(date);
+            if (!rawData.Any()) return Task.CompletedTask;
             List<V> saveItem = _manipulator.Manipulate(rawData, date);
             _writer.Write(saveItem, date);
             return Task.CompletedTask;

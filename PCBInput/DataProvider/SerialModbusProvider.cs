@@ -24,12 +24,17 @@ namespace PCBInput.DataProvider
         public SerialModbusProvider(IUnitOfWork<ItemDetailRepository> work)
         {
             _work = work;
-            _modbusClient = new ModbusClient($"COM{GetSensors().First().SerPort}");
-            _modbusClient.UnitIdentifier = 1;
-            _modbusClient.Baudrate = 9600;
-            _modbusClient.Parity = Parity.None;
-            _modbusClient.StopBits = StopBits.One;
-            _modbusClient!.Connect();
+            try
+            {
+                _modbusClient = new ModbusClient($"COM{GetSensors().First().SerPort}");
+                _modbusClient.UnitIdentifier = 1;
+                _modbusClient.Baudrate = 9600;
+                _modbusClient.Parity = Parity.None;
+                _modbusClient.StopBits = StopBits.One;
+                _modbusClient!.Connect();
+            }
+            catch { }
+            
         }
 
         public void PowerUpSensors()
@@ -37,10 +42,12 @@ namespace PCBInput.DataProvider
             try
             {
                 _modbusClient!.WriteSingleRegister(500, 5000);
+                Disconnect();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                Disconnect();
             }
         }
 
@@ -54,9 +61,13 @@ namespace PCBInput.DataProvider
             try
             {
                 var raw = _modbusClient!.ReadInputRegisters(0, 8);
+                Disconnect();
                 return raw.ToList();
             }
-            catch { return new List<int> {0,0,0,0,0,0,0,0}; }
+            catch {
+                Disconnect();
+                return new List<int> {0,0,0,0,0,0,0,0}; 
+            }
         }
 
         public void Dispose()

@@ -1,10 +1,7 @@
 ﻿using DBLib.Record;
 using DBLib.Helper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using System.Diagnostics;
 
 namespace PCBInput.DataProvider
 {
@@ -21,10 +18,13 @@ namespace PCBInput.DataProvider
         {
             var offDates = new List<DateTime>();
             var lastDbDate = _dbFileManager.GetLastFile("DAY");
+            //Trace.WriteLine(lastDbDate);
             if (Math.Abs((lastDbDate - DateTime.Now).TotalMinutes) < 5) return offDates;
             RenewUnitOfWork<SendDataContext>(lastDbDate);
-            var lastItem = work!.Repo.GetLastRecord().FirstOrDefault();
-            for(var date = lastItem.Date.AddMinutes(5); date <= now; date = date.AddMinutes(5))
+            if(!work!.Repo.GetLastRecord().Any()) return offDates;
+            var lastItem = work!.Repo.GetLastRecord().LastOrDefault();
+            
+            for(var date = lastItem!.Date.AddMinutes(5); date <= now; date = date.AddMinutes(5))
             {
                 offDates.Add(date);
             }

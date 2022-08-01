@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCBInput", "PCBInput\PCBInput.csproj", "{6C8BE49E-FD8D-465B-A9EC-70BB976BAACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCBInput", "PCBInput\PCBInput.csproj", "{6C8BE49E-FD8D-465B-A9EC-70BB976BAACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCBInput.Test", "PCBInput.Test\PCBInput.Test.csproj", "{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PCBInput.Test", "PCBInput.Test\PCBInput.Test.csproj", "{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{0DBA881B-14A1-477E-99E9-3A30AACE342C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7413FE0-25A3-4E2F-9EB7-495A72B480E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DBA881B-14A1-477E-99E9-3A30AACE342C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DBA881B-14A1-477E-99E9-3A30AACE342C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DBA881B-14A1-477E-99E9-3A30AACE342C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DBA881B-14A1-477E-99E9-3A30AACE342C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

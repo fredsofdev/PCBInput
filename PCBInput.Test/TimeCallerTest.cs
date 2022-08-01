@@ -3,6 +3,11 @@ using PCBInput.Helper;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using DBLib;
+using DBLib.Record;
+using Moq;
+using DBLib.Setup;
+using DBLib.Setup.Entities;
 
 namespace PCBInput.Test
 {
@@ -12,7 +17,14 @@ namespace PCBInput.Test
         public void TimeCallerTimeInterval()
         {
             var eventLists = new List<DateTime>();
-            var timer = new TimeScheduleEvent();
+
+            var dbSetMock = Helper.getMockDbSet(Constants.SETTING);
+            var context = new Mock<SettingContext>();
+
+
+            context.Setup(x => x.Set<Setting>()).Returns(dbSetMock.Object);
+
+            var timer = new TimeScheduleEvent(new UnitOfWork<SetupRepository<Setting>, SettingContext>(context.Object));
 
             timer.fiveSecondElapsed += delegate (object? source, TimeScheduleEventArgs e)
             {

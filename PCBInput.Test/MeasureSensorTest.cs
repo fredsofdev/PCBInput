@@ -1,4 +1,6 @@
-﻿using DBLib;
+﻿
+using DBLib;
+using DBLib.Record;
 using DBLib.Record.Entities;
 using DBLib.Setup;
 using DBLib.Setup.Entities;
@@ -372,7 +374,7 @@ namespace PCBInput.Test
 
             var modifier = getManipulator(Sensorlist);
 
-            var result = modifier.Manipulate(new List<int> { 1600, 0, 0}, DateTime.Now);
+            var result = modifier.Manipulate(new List<int> { 2551, 0, 0}, DateTime.Now);
 
             Item targetItem = result.FirstOrDefault()!;
 
@@ -397,8 +399,8 @@ namespace PCBInput.Test
                     DeviceCode = "0",
                     IsAlarmState = false,
                     ItemMinRange = -2,
-                    ItemMaxRange = 20,
-                    DefaultValue = 2,
+                    ItemMaxRange = 50,
+                    DefaultValue = 24,
                     InputCh = 1,
                     SerPort = 4,
                     IsInspection = false,
@@ -408,21 +410,24 @@ namespace PCBInput.Test
 
             var modifier = getManipulator(Sensorlist);
 
-            var result = modifier.Manipulate(new List<int> { 4000, 0, }, DateTime.Now);
+            var result = modifier.Manipulate(new List<int> { 2552, 0, }, DateTime.Now);
 
             Item targetItem = result.FirstOrDefault()!;
 
-            Assert.Equal(1, targetItem.RptState);
+            Assert.True(targetItem.RptValue>29 && targetItem.RptValue<31);
+            //Assert.Equal(1, targetItem.RptValue);
         }
 
         private MeasureSensor getManipulator(List<ItemDetail> details)
         {
             var dbSetMock = Helper.getMockDbSet(details);
-            var context = new Mock<DbContextBase>();
+            var context = new Mock<SettingContext>();
 
+            var now = DateTime.Now;
             context.Setup(x => x.Set<ItemDetail>()).Returns(dbSetMock.Object);
+            context.Setup(x => x.dbFile).Returns($"local\\DAT_{now.ToString("yyyyMMddHH")}.db");
 
-            return new MeasureSensor(new UnitOfWork<ItemDetailRepository>(context.Object));
+            return new MeasureSensor(new UnitOfWork<ItemDetailRepository, SettingContext>(context.Object));
         }
     }
 }

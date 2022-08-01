@@ -17,6 +17,11 @@ namespace PCBInput.DataProvider
 
         public List<SendItem> GetData(DateTime date)
         {
+            var dbFile = AppDomain.CurrentDomain.BaseDirectory + $"\\DATA\\"
+                + $"DAY_{date.ToString("yyyyMMdd")}.db";
+
+            if (!File.Exists(dbFile)) return new();
+
             RenewUnitOfWork<SendDataContext>(date);
             return work!.Repo.GetAll().ToList();
         }

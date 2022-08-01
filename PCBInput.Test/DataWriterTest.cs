@@ -29,13 +29,13 @@ namespace PCBInput.Test
                 });
             }
             var dbSetMock = Helper.getMockDbSet(testList);
-            var context = new Mock<DbContextBase>();
+            var context = new Mock<RecordDataContext>();
 
             context.Setup(x => x.Set<Item>()).Returns(dbSetMock.Object);
             var date = DateTime.Now;
             context.Setup(x => x.dbFile).Returns($"local\\DAT_{date.ToString("yyyyMMddHH")}.db");
 
-            var dataWriter = new SecondDataWriter(new UnitOfWork<ItemRecordRepository>(context.Object));
+            var dataWriter = new SecondDataWriter(new UnitOfWork<ItemRecordRepository, RecordDataContext>(context.Object));
             
             dataWriter.Write(testList, date);
             

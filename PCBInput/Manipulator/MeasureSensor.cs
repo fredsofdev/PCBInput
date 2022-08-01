@@ -95,7 +95,7 @@ namespace PCBInput.Manipulator
 
         private double MeasureRawData(int Pmax, int Pmin, int currentRaw)
         {
-            double PmaxR = 4095;
+            double PmaxR = 4070;
             double PminR = 818;
 
             return (Pmax - Pmin) / (PmaxR - PminR) * (currentRaw - PminR) + Pmin;
